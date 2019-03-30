@@ -6,7 +6,7 @@
 
         public int[] Scores { get; set; }
 
-        public Student (string name, int[] scores)
+        public Student(string name, int[] scores)
         {
             Name = name;
             Scores = scores;
@@ -14,10 +14,10 @@
 
         public int? GetMaximumScore()
         {
-            int maxScore = 0;
+            int maxScore = Scores[0];
             for (int i = 0; i < Scores.Length; i++)
             {
-                if(Scores[i] < maxScore)
+                if(maxScore > Scores[i])
                 {
                     maxScore = Scores[i];
                 }
@@ -28,7 +28,7 @@
 
         public int? GetMinimumScore()
         {
-            int minScore = 100;
+            int minScore = Scores[0];
             for (int i = 0; i < Scores.Length; i++)
             {
                 if(minScore < Scores[i])

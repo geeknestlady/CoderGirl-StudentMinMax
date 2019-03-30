@@ -9,11 +9,9 @@ namespace StudentMinMax
     {
         public static void Main()
         {
-            List<Student> students = CreateNewStudent();
-            //Student students = new Student();
-            //students = CreateNewStudent(line);
-
-            foreach (var student in students)
+            List<Student> students = CreateNewStudent();           
+                      
+            foreach (Student student in students)
             {
                 Console.WriteLine($"{student.Name} Min: {student.GetMinimumScore()} Max: {student.GetMaximumScore()}");
             }
@@ -22,34 +20,38 @@ namespace StudentMinMax
             Console.ReadLine();
         }
 
-        private static Student CreateNewStudent()
+        private static List<Student> CreateNewStudent()
         {
-            List<string> students = GetStudentDataFile();
+            List<string> studentsData = GetStudentDataFile();
 
             string name = "";
-            foreach (string line in students)
+            string[] scores = Array.Empty<string>();
+            int[] s = Array.Empty<int>();
+            List<Student> students = new List<Student>();
+            foreach (string line in studentsData)
             {
+                Student student = new Student(name, s);
                 string[] properties = line.Split(" ");
-
+                scores = new string[properties.Length - 1];
+                name = properties[0];
+                    
                 for (int i = 0; i < properties.Length; i++)
                 {
-                    string[] scores = new string[properties.Length - 1];
-                    if (i == 0)
-                    {
-                        name = properties[0];
-                    }
-                    else
-                    {
-                        scores[i - 1] = properties[i];
-                    }
 
-                    s = Array.ConvertAll(scores, int.Parse);
+                    if (i != 0)
+                    {
+                        scores[i-1] = properties[i];
+                    }                   
+
                 }
-            }
-             int[] s = new int[scores.Length];
-             Student student = new Student(name, s);            
+                        student.Name = name;
+                        student.Scores = s;
+                        s = new int[scores.Length];
+                        s = Array.ConvertAll(scores, int.Parse);
+                        students.Add(student);
+            }            
             
-            return student;
+            return students;
             
         }
 

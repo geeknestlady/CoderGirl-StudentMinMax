@@ -9,9 +9,9 @@ namespace StudentMinMax
     {
         public static void Main()
         {
-            List<Student> student = GetStudentDataFile();
-            Student students = new Student();
-            students = CreateNewStudent(line);
+            List<Student> students = CreateNewStudent();
+            //Student students = new Student();
+            //students = CreateNewStudent(line);
 
             foreach (var student in students)
             {
@@ -22,35 +22,43 @@ namespace StudentMinMax
             Console.ReadLine();
         }
 
-        private static Student CreateNewStudent(string line)
+        private static Student CreateNewStudent()
         {
-            Student student = new Student();
-            
-            string[] properties = line.Split(" ");
-            string[] scores = new string[properties.Length - 1];
-            for (int i = 0; i < properties.Length; i++)
+            List<string> students = GetStudentDataFile();
+
+            string name = "";
+            foreach (string line in students)
             {
-                if(i == 0)
+                string[] properties = line.Split(" ");
+
+                for (int i = 0; i < properties.Length; i++)
                 {
-                    student.Name = properties[0];
-                }
-                else
-                {
-                    scores[i-1] = properties[i];
+                    string[] scores = new string[properties.Length - 1];
+                    if (i == 0)
+                    {
+                        name = properties[0];
+                    }
+                    else
+                    {
+                        scores[i - 1] = properties[i];
+                    }
+
+                    s = Array.ConvertAll(scores, int.Parse);
                 }
             }
-            student.Scores = Array.ConvertAll(scores, int.Parse);
+             int[] s = new int[scores.Length];
+             Student student = new Student(name, s);            
+            
             return student;
             
         }
 
-        private static List<Student> GetStudentDataFile()
+        private static List<string> GetStudentDataFile()
         {
-            List<Student> students = new List<Student>();
+            List<string> students = new List<string>();
             foreach(string line in File.ReadAllLines(@"c:studentdata.txt"))
-                {
-                    Student student = new Student();
-                    students.Add(student);
+                {                    
+                    students.Add(line);
                 }
             return students;
             //List<string> lines = File.ReadAllLines(@"c:studentdata.txt").ToList();

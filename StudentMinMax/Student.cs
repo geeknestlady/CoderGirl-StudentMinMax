@@ -6,6 +6,12 @@
 
         public int[] Scores { get; set; }
 
+        public Student (string name, int[] scores)
+        {
+            Name = name;
+            Scores = scores;
+        }
+
         public int? GetMaximumScore()
         {
             int maxScore = 0;
